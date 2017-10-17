@@ -55,10 +55,10 @@ app.deviceFound = function(deviceInfo)
 	// that we filter this out below.
 
 	// Have we found one of our beacons?
-	if (app.beaconPages[deviceInfo.name] && deviceInfo.rssi < 0)
+	if (app.beaconPages[deviceInfo.BEACON1] && deviceInfo.rssi < 0)
 	{
 		// Update signal strength for beacon.
-		app.beaconRSSI[deviceInfo.name] =
+		app.beaconRSSI[deviceInfo.BEACON1] =
 		{
 			rssi: deviceInfo.rssi,
 			timestamp: Date.now()
@@ -79,7 +79,7 @@ app.runSelectPageTimer = function()
 {
 	// Find the closest beacon.
 	var closestBeacon = null
-	for (var beaconName in app.beaconRSSI)
+	for (var BEACON1 in app.beaconRSSI)
 	{
 		if (!closestBeacon)
 		{
@@ -120,12 +120,12 @@ app.runSelectPageTimer = function()
 // to clear old beacon readings that may now be out of range.
 app.runClearBeaconTimer = function()
 {
-	for (var beaconName in app.beaconRSSI)
+	for (var BEACON1 in app.beaconRSSI)
 	{
-		var beaconInfo = app.beaconRSSI[beaconName]
+		var beaconInfo = app.beaconRSSI[BEACON1]
 		if (Date.now() - 10000 > beaconInfo.timestamp)
 		{
-			delete app.beaconRSSI[beaconName]
+			delete app.beaconRSSI[BEACON1]
 		}
 	}
 
